@@ -1,7 +1,8 @@
 "use client";
 
-import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "motion/react";
-import { useRef, useState } from "react";
+import { AnimatePresence, motion, useMotionValueEvent, useReducedMotion, useScroll } from "motion/react";
+import { useLenis } from "lenis/react";
+import { useEffect, useRef, useState } from "react";
 import type { projects as Projects } from "@/content/data";
 import { Chip } from "@/components/ui/Chip";
 import { LlmVisual } from "@/components/visuals/LlmVisual";
@@ -12,6 +13,8 @@ import { ease } from "@/lib/motion";
 type Project = (typeof Projects)[number];
 
 const VISUALS = { sanjaya: SanjayaVisual, mts: MtsVisual, llm: LlmVisual };
+const AUTOPLAY_MS = 3000;
+const TICK_MS = 250;
 
 /**
  * Scroll-pinned case study: the outer block is tall, the inner block is sticky.
@@ -23,10 +26,42 @@ export function ProjectStory({ project, total }: { project: Project; total: numb
   const [step, setStep] = useState(0);
   const n = project.steps.length;
 
+  const idle = useRef(0); // ms the user has been idle while this story is pinned
+  const reduce = useReducedMotion();
+
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
   useMotionValueEvent(scrollYProgress, "change", (p) => {
+    idle.current = 0;
     setStep(Math.min(n - 1, Math.max(0, Math.floor(p * n))));
   });
+
+  // Autoplay: while the story is pinned and the user is idle, cycle steps 1 → 2 → 3 → 1.
+  // Only the displayed step changes (no page movement); any scroll or click takes back control.
+  useEffect(() => {
+    if (reduce) return;
+    const id = setInterval(() => {
+      const r = ref.current?.getBoundingClientRect();
+      const pinned = r && r.top <= 1 && r.bottom >= window.innerHeight - 1;
+      idle.current = pinned ? idle.current + TICK_MS : 0;
+      if (idle.current < AUTOPLAY_MS) return;
+      idle.current = 0;
+      setStep((s) => (s + 1) % n);
+    }, TICK_MS);
+    return () => clearInterval(id);
+  }, [n, reduce]);
+
+  // Clicking a step scrolls to the middle of its scroll range, so scroll stays the single source of truth.
+  const lenis = useLenis();
+  const goTo = (i: number) => {
+    const el = ref.current;
+    if (!el) return;
+    idle.current = 0;
+    setStep(i);
+    const top = el.getBoundingClientRect().top + window.scrollY;
+    const y = top + (el.offsetHeight - window.innerHeight) * ((i + 0.5) / n);
+    if (lenis) lenis.scrollTo(y);
+    else window.scrollTo({ top: y, behavior: "smooth" });
+  };
 
   const Visual = VISUALS[project.id];
 
@@ -64,12 +99,15 @@ export function ProjectStory({ project, total }: { project: Project; total: numb
                       on ? "border-(--accent)" : "hidden border-border lg:block"
                     }`}
                   >
-                    <p
-                      className={`flex items-baseline gap-3 font-medium transition-colors duration-500 ${on ? "text-text" : "text-subtle"}`}
+                    <button
+                      type="button"
+                      onClick={() => goTo(i)}
+                      aria-current={on ? "step" : undefined}
+                      className={`flex w-full cursor-pointer items-baseline gap-3 text-left font-medium transition-colors duration-500 ${on ? "text-text" : "text-subtle hover:text-muted"}`}
                     >
                       <span className="font-mono text-xs text-(--accent)">0{i + 1}</span>
                       {s.title}
-                    </p>
+                    </button>
                     <AnimatePresence initial={false}>
                       {on && (
                         <motion.p
