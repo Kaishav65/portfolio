@@ -45,13 +45,13 @@ function RotatingLine() {
   }, [reduce]);
 
   return (
-    <p className="text-body-lg text-muted sm:text-2xl">
-      I{" "}
-      <span className="relative inline-grid overflow-hidden align-bottom">
+    <p className="text-body-lg text-muted flex items-start gap-[0.3em] sm:text-2xl">
+      <span className="shrink-0">I</span>
+      <span className="relative inline-grid min-w-0 overflow-hidden">
         <AnimatePresence mode="popLayout" initial={false}>
           <motion.span
             key={i}
-            className="text-gradient col-start-1 row-start-1 font-medium whitespace-nowrap"
+            className="text-gradient col-start-1 row-start-1 font-medium"
             initial={{ y: "100%", opacity: 0, filter: "blur(6px)" }}
             animate={{ y: "0%", opacity: 1, filter: "blur(0px)" }}
             exit={{ y: "-100%", opacity: 0, filter: "blur(6px)" }}
