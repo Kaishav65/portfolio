@@ -1,0 +1,127 @@
+"use client";
+
+import { AnimatePresence, motion } from "motion/react";
+import { useState } from "react";
+import { links, profile } from "@/content/data";
+import { Reveal } from "@/components/ui/Reveal";
+import { ease } from "@/lib/motion";
+
+const SOCIALS = [
+  { label: "LinkedIn", href: links.linkedin },
+  { label: "GitHub", href: links.github },
+  { label: "LeetCode", href: links.leetcode },
+];
+
+function CopyEmail() {
+  const [copied, setCopied] = useState(false);
+
+  async function copy() {
+    try {
+      await navigator.clipboard.writeText(links.email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1800);
+    } catch {
+      window.location.href = `mailto:${links.email}`;
+    }
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={copy}
+      data-cursor="Copy"
+      className="group glass flex w-full items-center justify-between gap-4 rounded-full py-3 pr-3 pl-6 text-left transition-colors hover:border-violet/50 sm:w-auto"
+    >
+      <span className="truncate font-mono text-sm sm:text-base">{links.email}</span>
+      <span className="relative grid h-10 min-w-24 place-items-center overflow-hidden rounded-full bg-[image:var(--gradient-brand)] px-4 text-sm font-medium text-white">
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.span
+            key={copied ? "y" : "n"}
+            initial={{ y: 16, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -16, opacity: 0 }}
+            transition={{ duration: 0.25 }}
+          >
+            {copied ? "Copied ✓" : "Copy"}
+          </motion.span>
+        </AnimatePresence>
+      </span>
+    </button>
+  );
+}
+
+export function Contact() {
+  return (
+    <section id="contact" className="container-page py-[clamp(6rem,15vh,12rem)]">
+      <Reveal>
+        <p className="label-mono mb-6 flex items-center gap-3 text-subtle">
+          <span className="text-gradient">05</span>
+          <span className="h-px w-10 bg-border" />
+          Contact
+        </p>
+      </Reveal>
+
+      <h2 className="font-serif text-[clamp(3.25rem,10vw,9rem)] leading-[0.95] tracking-[-0.03em]">
+        {["Let's", "build"].map((w, i) => (
+          <span key={w} className="mr-[0.25em] inline-block overflow-hidden pb-[0.1em] align-bottom">
+            <motion.span
+              className="inline-block"
+              initial={{ y: "110%" }}
+              whileInView={{ y: "0%" }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, ease: ease.outExpo, delay: i * 0.08 }}
+            >
+              {w}
+            </motion.span>
+          </span>
+        ))}
+        <br />
+        <span className="inline-block overflow-hidden pr-[0.1em] pb-[0.15em] align-bottom">
+          <motion.em
+            className="text-gradient inline-block pr-[0.05em]"
+            initial={{ y: "110%" }}
+            whileInView={{ y: "0%" }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, ease: ease.outExpo, delay: 0.16 }}
+          >
+            something.
+          </motion.em>
+        </span>
+      </h2>
+
+      <Reveal delay={0.2} className="mt-12 grid gap-10 md:mt-16 md:grid-cols-12 md:items-end">
+        <div className="md:col-span-7">
+          <p className="mb-6 max-w-md text-body-lg text-muted">
+            Open to interesting problems in frontend, full-stack and AI tooling. The fastest way to reach me is email.
+          </p>
+          <CopyEmail />
+        </div>
+
+        <div className="flex flex-col gap-3 md:col-span-4 md:col-start-9">
+          {SOCIALS.map((s) => (
+            <a
+              key={s.label}
+              href={s.href}
+              target="_blank"
+              rel="noreferrer"
+              className="group flex items-center justify-between border-b border-border py-3 text-lg transition-colors hover:border-text"
+            >
+              {s.label}
+              <span className="text-muted transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-text">
+                ↗
+              </span>
+            </a>
+          ))}
+          <a
+            href={profile.resumeUrl}
+            download
+            className="group flex items-center justify-between border-b border-border py-3 text-lg transition-colors hover:border-text"
+          >
+            Résumé (PDF)
+            <span className="text-muted transition-transform duration-300 group-hover:translate-y-1 group-hover:text-text">↓</span>
+          </a>
+        </div>
+      </Reveal>
+    </section>
+  );
+}
