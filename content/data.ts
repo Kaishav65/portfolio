@@ -64,7 +64,7 @@ export const experience = [
       "Built a full-stack Material Tracking System (FastAPI, PostgreSQL, Redis, React).",
       "Engineered an LLM-powered reporting workflow with n8n, agents and MCP tools.",
     ],
-    tech: ["React", "TypeScript", "Zustand", "FastAPI", "PostgreSQL", "Redis", "n8n"],
+    tech: ["React", "TypeScript", "Zustand", "Python", "PostgreSQL", "Redis", "n8n"],
   },
   {
     company: "Ati Robotics",
@@ -85,7 +85,7 @@ export const experience = [
       "Launched a cross-platform React Native app with a 4-member Agile team.",
       "Reduced deployment time by 30%.",
     ],
-    tech: ["React Native", "Git", "Agile"],
+    tech: ["React Native", "Git", "Agile", "Mobile"],
   },
 ];
 
