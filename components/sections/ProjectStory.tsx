@@ -13,7 +13,7 @@ import { ease } from "@/lib/motion";
 type Project = (typeof Projects)[number];
 
 const VISUALS = { sanjaya: SanjayaVisual, mts: MtsVisual, llm: LlmVisual };
-const AUTOPLAY_MS = 5000;
+const AUTOPLAY_MS = 3000;
 const TICK_MS = 250;
 
 /**

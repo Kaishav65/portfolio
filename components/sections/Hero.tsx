@@ -1,11 +1,10 @@
 "use client";
 
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { profile } from "@/content/data";
 import { dur, ease, stagger } from "@/lib/motion";
-import { HeroVisual } from "@/components/visuals/HeroVisual";
-
 /** One word split into letters that slide up from a mask, then lift on hover. */
 function KineticWord({
   word,
@@ -97,8 +96,25 @@ export function Hero() {
             <KineticWord word={profile.lastName} delay={0.45} className="text-gradient italic" />
           </h1>
 
-          <motion.div {...fade(0.7)} className="hidden aspect-[32/34] w-[clamp(240px,28vw,360px)] shrink-0 lg:block">
-            <HeroVisual />
+          <motion.div
+            {...fade(0.7)}
+            className="relative hidden aspect-[32/34] w-[clamp(240px,28vw,360px)] shrink-0 lg:block"
+          >
+            {/* Dark theme only: brand glow behind the figure so the dark hoodie/desk read against the bg */}
+            <div
+              aria-hidden
+              className="absolute inset-[-15%] -z-10 hidden bg-[radial-gradient(ellipse_at_40%_35%,color-mix(in_srgb,var(--violet)_45%,transparent),transparent_60%),radial-gradient(ellipse_at_65%_75%,color-mix(in_srgb,var(--cyan)_30%,transparent),transparent_60%)] blur-2xl dark:block"
+            />
+            {/* Animated illustration (background removed); dark theme adds a thin rim light */}
+            <Image
+              src="/coder.webp"
+              alt=""
+              width={299}
+              height={370}
+              unoptimized
+              fetchPriority="high"
+              className="size-full object-contain dark:[filter:drop-shadow(0_0_1px_rgb(210_200_255/0.7))_drop-shadow(0_0_10px_rgb(124_58_237/0.35))]"
+            />
           </motion.div>
         </div>
 
