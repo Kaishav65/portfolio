@@ -4,6 +4,7 @@ import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } fr
 import { useEffect, useRef, useState } from "react";
 import { profile } from "@/content/data";
 import { dur, ease, stagger } from "@/lib/motion";
+import { HeroVisual } from "@/components/visuals/HeroVisual";
 
 /** One word split into letters that slide up from a mask, then lift on hover. */
 function KineticWord({
@@ -89,11 +90,17 @@ export function Hero() {
           {profile.role} — {profile.location}
         </motion.p>
 
-        <h1 className="font-serif text-display-xl" aria-label={`${profile.firstName} ${profile.lastName}`}>
-          <KineticWord word={profile.firstName} delay={0.2} />
-          <br />
-          <KineticWord word={profile.lastName} delay={0.45} className="text-gradient italic" />
-        </h1>
+        <div className="flex items-center justify-between gap-8">
+          <h1 className="font-serif text-display-xl" aria-label={`${profile.firstName} ${profile.lastName}`}>
+            <KineticWord word={profile.firstName} delay={0.2} />
+            <br />
+            <KineticWord word={profile.lastName} delay={0.45} className="text-gradient italic" />
+          </h1>
+
+          <motion.div {...fade(0.7)} className="hidden aspect-[32/34] w-[clamp(240px,28vw,360px)] shrink-0 lg:block">
+            <HeroVisual />
+          </motion.div>
+        </div>
 
         <div className="mt-10 grid gap-10 md:mt-14 md:grid-cols-12 md:items-end">
           <motion.div {...fade(0.9)} className="md:col-span-7">
