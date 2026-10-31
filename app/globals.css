@@ -114,12 +114,6 @@ html.lenis body {
   overflow: clip;
 }
 
-/* Hide native cursor only when the custom cursor is active */
-html.has-custom-cursor,
-html.has-custom-cursor * {
-  cursor: none !important;
-}
-
 /* ───────────────────────── Utilities ───────────────────────── */
 @utility container-page {
   width: 100%;

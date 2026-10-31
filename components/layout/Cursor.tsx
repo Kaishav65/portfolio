@@ -4,7 +4,7 @@ import { motion, useMotionValue, useReducedMotion, useSpring } from "motion/reac
 import { useEffect, useState } from "react";
 
 /**
- * Dot + trailing gradient ring. Grows over links/buttons; elements with
+ * Trailing gradient ring around the native cursor. Grows over links/buttons; elements with
  * data-cursor="Label" grow it larger and show the label. Off on touch / reduced motion.
  */
 export function Cursor() {
@@ -23,7 +23,6 @@ export function Cursor() {
     if (reduce || !window.matchMedia("(pointer: fine)").matches) return;
     // eslint-disable-next-line react-hooks/set-state-in-effect -- capability detection must happen on the client
     setEnabled(true);
-    document.documentElement.classList.add("has-custom-cursor");
 
     const onMove = (e: PointerEvent) => {
       x.set(e.clientX);
@@ -39,7 +38,6 @@ export function Cursor() {
     return () => {
       window.removeEventListener("pointermove", onMove);
       document.documentElement.removeEventListener("pointerleave", onLeave);
-      document.documentElement.classList.remove("has-custom-cursor");
     };
   }, [reduce, x, y]);
 
@@ -67,10 +65,6 @@ export function Cursor() {
         />
         {label && <span className="label-mono relative text-[10px] text-white">{label}</span>}
       </motion.div>
-      <motion.div
-        className="absolute top-0 left-0 size-1.5 rounded-full bg-text"
-        style={{ x, y, translateX: "-50%", translateY: "-50%", opacity: isHover ? 0 : 1 }}
-      />
     </div>
   );
 }
