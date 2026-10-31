@@ -1,6 +1,7 @@
 import { metrics, profile } from "@/content/data";
 import { Counter } from "@/components/ui/Counter";
 import { Reveal } from "@/components/ui/Reveal";
+import { ScrollText } from "@/components/ui/ScrollText";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 
 export function About() {
@@ -11,13 +12,7 @@ export function About() {
       <SectionHeader index="01" label="About" before="Engineering that makes" accent="robots" after=" legible." />
 
       <div className="grid gap-12 md:grid-cols-12">
-        <div className="space-y-6 md:col-span-7">
-          {profile.about.map((p, i) => (
-            <Reveal key={i} delay={i * 0.1}>
-              <p className={`text-body-lg ${i === 0 ? "text-text" : "text-muted"}`}>{p}</p>
-            </Reveal>
-          ))}
-        </div>
+        <ScrollText paragraphs={profile.about} className="space-y-6 md:col-span-7" />
 
         <Reveal delay={0.2} className="md:col-span-4 md:col-start-9">
           <div className="glass rounded-lg p-6">

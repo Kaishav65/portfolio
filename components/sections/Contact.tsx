@@ -12,16 +12,16 @@ const SOCIALS = [
   { label: "LeetCode", href: links.leetcode },
 ];
 
-function CopyEmail() {
+function CopyField({ value, fallbackHref }: { value: string; fallbackHref: string }) {
   const [copied, setCopied] = useState(false);
 
   async function copy() {
     try {
-      await navigator.clipboard.writeText(links.email);
+      await navigator.clipboard.writeText(value);
       setCopied(true);
       setTimeout(() => setCopied(false), 1800);
     } catch {
-      window.location.href = `mailto:${links.email}`;
+      window.location.href = fallbackHref;
     }
   }
 
@@ -32,7 +32,7 @@ function CopyEmail() {
       data-cursor="Copy"
       className="group glass flex w-full items-center justify-between gap-4 rounded-full py-3 pr-3 pl-6 text-left transition-colors hover:border-violet/50 sm:w-auto"
     >
-      <span className="truncate font-mono text-sm sm:text-base">{links.email}</span>
+      <span className="truncate font-mono text-sm sm:text-base">{value}</span>
       <span className="relative grid h-10 min-w-24 place-items-center overflow-hidden rounded-full bg-[image:var(--gradient-brand)] px-4 text-sm font-medium text-white">
         <AnimatePresence mode="wait" initial={false}>
           <motion.span
@@ -92,9 +92,12 @@ export function Contact() {
       <Reveal delay={0.2} className="mt-12 grid gap-10 md:mt-16 md:grid-cols-12 md:items-end">
         <div className="md:col-span-7">
           <p className="mb-6 max-w-md text-body-lg text-muted">
-            Open to interesting problems in frontend, full-stack and AI tooling. The fastest way to reach me is email.
+            Open to interesting problems in frontend, full-stack and AI tooling. Reach me by email or phone.
           </p>
-          <CopyEmail />
+          <div className="flex flex-col gap-3 sm:items-start">
+            <CopyField value={links.email} fallbackHref={`mailto:${links.email}`} />
+            <CopyField value={links.phone} fallbackHref={`tel:${links.phone.replace(/\s/g, "")}`} />
+          </div>
         </div>
 
         <div className="flex flex-col gap-3 md:col-span-4 md:col-start-9">

@@ -33,6 +33,7 @@ export const profile = {
 
 export const links = {
   email: "kaishavbasodiya@gmail.com",
+  phone: "+91 7610632240",
   linkedin: "https://www.linkedin.com/in/kaishav-basodiya-8329b5208/",
   github: "https://github.com/Kaishav65",
   leetcode: "https://leetcode.com/u/Keshav_code/",

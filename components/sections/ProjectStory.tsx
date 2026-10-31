@@ -27,12 +27,18 @@ export function ProjectStory({ project, total }: { project: Project; total: numb
   const n = project.steps.length;
 
   const idle = useRef(0); // ms the user has been idle while this story is pinned
+  const scrollStep = useRef(0); // step implied by the current scroll position
   const reduce = useReducedMotion();
 
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
   useMotionValueEvent(scrollYProgress, "change", (p) => {
     idle.current = 0;
-    setStep(Math.min(n - 1, Math.max(0, Math.floor(p * n))));
+    // Only take over when scroll crosses into another step's range, so tiny layout-induced
+    // scroll shifts (e.g. scroll anchoring when step text reflows on small screens) don't reset autoplay.
+    const s = Math.min(n - 1, Math.max(0, Math.floor(p * n)));
+    if (s === scrollStep.current) return;
+    scrollStep.current = s;
+    setStep(s);
   });
 
   // Autoplay: while the story is pinned and the user is idle, cycle steps 1 → 2 → 3 → 1.
