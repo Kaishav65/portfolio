@@ -79,7 +79,7 @@ export function Hero() {
   });
 
   return (
-    <section ref={ref} id="top" className="relative flex min-h-svh flex-col justify-center pt-28 pb-16">
+    <section ref={ref} id="top" className="relative flex min-h-svh flex-col justify-center pt-40 pb-16">
       <motion.div style={{ y, opacity }} className="container-page">
         <motion.p {...fade(0.1)} className="label-mono mb-8 flex items-center gap-3 text-muted">
           <span className="relative flex size-2">
@@ -118,7 +118,7 @@ export function Hero() {
           </motion.div>
         </div>
 
-        <div className="mt-10 grid gap-10 md:mt-14 md:grid-cols-12 md:items-end">
+        <div className="mt-10 grid gap-10 md:mt-14 md:grid-cols-12 md:items-start">
           <motion.div {...fade(0.9)} className="md:col-span-7">
             <RotatingLine />
           </motion.div>

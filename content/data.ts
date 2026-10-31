@@ -9,10 +9,10 @@ export const profile = {
   intro:
     "Software engineer at a robotics company, open to forward deployed engineering roles. I build analytics platforms, full-stack systems and LLM-powered automation — and use AI tools, LLMs and agentic workflows to ship scalable frontends and backends faster.",
   rotatingLines: [
-    "build analytics for robot fleets.",
-    "ship fullstack system end to end.",
-    "automate reporting with LLM agents.",
-    "deploy AI solutions alongside users/client.",
+    "build analytics and visualization for real time data.",
+    "ship full-stack systems end to end.",
+    "automate reporting with AI and LLM agents.",
+    "deploy AI solutions alongside users on client site.",
     "craft pixel-perfect React interfaces.",
     "ship faster with AI-powered workflows.",
   ],
