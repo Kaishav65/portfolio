@@ -27,7 +27,7 @@ const mono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "Kaishav Basodiya — Software Engineer",
   description:
-    "Software engineer at Ati Motors building robot analytics platforms, full-stack systems and LLM-powered automation.",
+    "Software engineer at Ati Robotics building robot analytics platforms, full-stack systems and LLM-powered automation.",
 };
 
 // Runs during HTML parsing, before first paint, so the saved theme never flashes.
