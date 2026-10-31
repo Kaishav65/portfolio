@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useMotionValueEvent, useScroll } from "motion/react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { navItems, profile } from "@/content/data";
 import { ease } from "@/lib/motion";
 import { ThemeToggle } from "./ThemeToggle";
@@ -11,12 +11,27 @@ export function Nav() {
   const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
+  // Nav-link jumps keep the header visible until the user scrolls by hand.
+  const pinned = useRef(false);
+
+  useEffect(() => {
+    const release = () => { pinned.current = false; };
+    const events = ["wheel", "touchmove", "keydown"] as const;
+    events.forEach((e) => window.addEventListener(e, release, { passive: true }));
+    return () => events.forEach((e) => window.removeEventListener(e, release));
+  }, []);
+
   // Hide on scroll down, show on scroll up.
   useMotionValueEvent(scrollY, "change", (y) => {
     const prev = scrollY.getPrevious() ?? 0;
-    setHidden(y > prev && y > 200);
+    setHidden(!pinned.current && y > prev && y > 200);
     setScrolled(y > 20);
   });
+
+  const pin = () => {
+    pinned.current = true;
+    setHidden(false);
+  };
 
   return (
     <motion.header
@@ -40,6 +55,7 @@ export function Nav() {
             <li key={item.href}>
               <a
                 href={item.href}
+                onClick={pin}
                 className="group relative px-3 py-2 text-sm text-muted transition-colors hover:text-text"
               >
                 {item.label}

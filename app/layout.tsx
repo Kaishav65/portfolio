@@ -44,7 +44,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         <InlineScript html={themeScript} />
       </head>
-      <body className="min-h-full overflow-x-clip">
+      <body className="min-h-full overflow-x-clip" suppressHydrationWarning>
         <Providers>
           <GradientBlobs />
           <div aria-hidden className="noise" />
