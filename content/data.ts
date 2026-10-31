@@ -7,11 +7,12 @@ export const profile = {
   location: "Bengaluru, India",
   company: "Ati Motors",
   intro:
-    "Software engineer at a robotics company. I build analytics platforms, full-stack systems and LLM-powered automation — and use AI tools end to end to ship scalable frontends and backends faster.",
+    "Software engineer at a robotics company, open to forward deployed engineering roles. I build analytics platforms, full-stack systems and LLM-powered automation — and use AI tools, LLMs and agentic workflows to ship scalable frontends and backends faster.",
   rotatingLines: [
     "build analytics for robot fleets.",
     "ship full-stack systems end to end.",
     "automate reporting with LLM agents.",
+    "deploy AI solutions alongside users on client site.",
     "craft pixel-perfect React interfaces.",
     "ship faster with AI-powered workflows.",
   ],
@@ -20,6 +21,7 @@ export const profile = {
     "I'm a software engineer at Ati Motors, a robotics company whose autonomous robots move material across factory floors. My work is making what those robots do visible, understandable and useful to the people who run them.",
     "I've built an analytics platform used by 1000+ people, a full-stack material tracking system, and an LLM-powered reporting workflow that writes and validates its own SQL. I care about fast, maintainable frontends, clean APIs, and interfaces that feel effortless.",
     "AI is a core part of how I build. I use AI coding agents and LLM tooling across the whole lifecycle — architecture, implementation, testing and reviews — to deliver scalable frontend and backend systems faster without trading off quality. And I build with AI too: agents, MCP tools and LLM workflows that automate real work in production.",
+    "That mix makes me a natural fit for forward deployed engineering. Much of my work starts with the people running the robots: I learn their workflows, turn their problems into working software, and keep refining it in production. I'm open to Software Engineer and Forward Deployed Engineer roles where I can work closely with users to design, build and deploy AI-powered systems.",
   ],
   education: {
     school: "Indian Institute of Information Technology (IIIT)",
