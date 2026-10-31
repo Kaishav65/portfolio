@@ -114,7 +114,7 @@ Section titles follow one pattern: a mono label (`01 — EXPERIENCE`), then a se
 - **Reveal:** fade + 24px rise + slight blur(8px→0), triggered once at 20% in view
 - **Split-text:** headings animate per word (hero: per letter) with a masked slide-up
 - **Count-up:** metrics animate 0 → value over 1.6s with ease-out-expo when in view
-- **Scroll-linked:** Framer `useScroll` + `useTransform` drives the timeline line and pinned project steps
+- **Scroll-linked:** Framer `useScroll` + `useTransform` drives the timeline line
 - **Smooth scroll:** Lenis (`lerp 0.1`), disabled on touch devices and under reduced motion
 - **Custom cursor:** 12px dot + 40px trailing gradient ring (spring). Grows to 80px with a "View" label over projects; hidden on touch devices.
 - **Reduced motion:** all reveals become simple opacity fades, pinned stories become static stacked blocks, blobs stop moving, cursor and Lenis turn off.
@@ -139,7 +139,7 @@ Section titles follow one pattern: a mono label (`01 — EXPERIENCE`), then a se
 │   Line fills with gradient as you scroll; each node expands with role, dates, highlights, tech chips
 │   Intern-era work (UI library, HMI, React Native app) lives here
 │
-├ 03 SELECTED WORK ── 3 scroll-pinned project stories (see §7)
+├ 03 SELECTED WORK ── 3 project stories (see §7)
 │
 ├ 04 SKILLS ── grouped clusters (Languages · Frontend · Backend · Data · DevOps)
 │   Chips with hover glow; two slow opposing marquees of tech names behind
@@ -152,9 +152,9 @@ Section titles follow one pattern: a mono label (`01 — EXPERIENCE`), then a se
 
 ---
 
-## 7. Project stories (scroll-pinned, stylised NDA-safe mockups)
+## 7. Project stories (click/autoplay steps, stylised NDA-safe mockups)
 
-Layout: **left = text steps** (title, role/stack chips, 3 steps that highlight in turn), **right = sticky animated visual** that changes state per step. About 300vh of scroll per project. On mobile: the visual sits on top, steps stack below, with no pinning.
+Layout: **left = text steps** (title, role/stack chips, 3 steps that highlight in turn), **right = animated visual** that changes state per step. Each project is one viewport tall; steps change on click or autoplay (every 3s while in view), not on scroll. On mobile: the visual sits on top, steps stack below.
 
 ### A. Sanjaya: Analytics & Monitoring Platform (cyan)
 Visual: a stylised **analytics dashboard** in a browser frame.
@@ -191,7 +191,7 @@ All mockups are built with **SVG + Framer Motion** (no images or video), so they
 | `Chip` | Tech tag, mono, hover glow |
 | `GlassCard` / `GradientBorder` | Surface primitives |
 | `TimelineItem` | Node + content, scroll-linked activation |
-| `ProjectStory` | Pinned container, step tracking, renders a `visual` component per step |
+| `ProjectStory` | Full-screen container, click/autoplay step tracking, renders a `visual` component per step |
 | `SanjayaVisual` / `MtsVisual` / `LlmVisual` | Step-driven SVG mockups |
 | `Cursor` | Custom cursor with hover-state context |
 | `GradientBlobs` | Animated background |
