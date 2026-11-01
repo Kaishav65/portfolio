@@ -11,21 +11,21 @@ export function About() {
     <section id="about" className="container-page py-[clamp(6rem,15vh,12rem)]">
       <SectionHeader index="01" label="About" before="Engineering that makes" accent="robots" after=" legible." />
 
-      <div className="grid gap-12 md:grid-cols-12">
-        <ScrollText paragraphs={profile.about} className="space-y-6 md:col-span-7" />
+      <ScrollText paragraphs={profile.about} className="max-w-4xl space-y-6" />
 
-        <Reveal delay={0.2} className="md:col-span-4 md:col-start-9">
-          <div className="glass rounded-lg p-6">
-            <p className="label-mono mb-4 text-subtle">Education</p>
-            <p className="font-serif text-2xl leading-tight">{edu.school}</p>
-            <p className="mt-2 text-muted">{edu.degree}</p>
-            <div className="mt-6 flex justify-between border-t border-border pt-4 font-mono text-sm text-muted">
-              <span>{edu.period}</span>
-              <span className="text-gradient">{edu.grade}</span>
-            </div>
+      <Reveal delay={0.2} className="mt-12">
+        <div className="glass flex flex-col gap-3 rounded-lg px-6 py-5 md:flex-row md:items-center md:gap-8">
+          <p className="label-mono text-subtle">Education</p>
+          <div className="md:flex-1">
+            <p className="font-serif text-xl leading-tight">{edu.school}</p>
+            <p className="mt-1 text-muted">{edu.degree}</p>
           </div>
-        </Reveal>
-      </div>
+          <div className="flex gap-6 font-mono text-sm text-muted">
+            <span>{edu.period}</span>
+            <span className="text-gradient">{edu.grade}</span>
+          </div>
+        </div>
+      </Reveal>
 
       <div className="mt-20 grid grid-cols-2 gap-4 md:mt-28 lg:grid-cols-4">
         {metrics.map((m, i) => (
