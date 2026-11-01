@@ -61,14 +61,17 @@ export function Contact() {
         </p>
       </Reveal>
 
-      <h2 className="font-serif text-[clamp(3.25rem,10vw,9rem)] leading-[0.95] tracking-[-0.03em]">
+      <motion.h2
+        className="font-serif text-[clamp(2.5rem,6.5vw,5.75rem)] leading-[0.9] tracking-[-0.03em]"
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true }}
+      >
         {["Let's", "build"].map((w, i) => (
-          <span key={w} className="mr-[0.25em] inline-block overflow-hidden pb-[0.1em] align-bottom">
+          <span key={w} className="mr-[0.25em] inline-block overflow-hidden pb-[0.04em] align-bottom">
             <motion.span
               className="inline-block"
-              initial={{ y: "110%" }}
-              whileInView={{ y: "0%" }}
-              viewport={{ once: true }}
+              variants={{ hidden: { y: "110%" }, show: { y: "0%" } }}
               transition={{ duration: 1, ease: ease.outExpo, delay: i * 0.08 }}
             >
               {w}
@@ -76,18 +79,16 @@ export function Contact() {
           </span>
         ))}
         <br />
-        <span className="inline-block overflow-hidden pr-[0.1em] pb-[0.15em] align-bottom">
+        <span className="inline-block overflow-hidden pr-[0.1em] pb-[0.22em] align-bottom">
           <motion.em
             className="text-gradient inline-block pr-[0.05em]"
-            initial={{ y: "110%" }}
-            whileInView={{ y: "0%" }}
-            viewport={{ once: true }}
+            variants={{ hidden: { y: "110%" }, show: { y: "0%" } }}
             transition={{ duration: 1, ease: ease.outExpo, delay: 0.16 }}
           >
             something.
           </motion.em>
         </span>
-      </h2>
+      </motion.h2>
 
       <Reveal delay={0.2} className="mt-12 grid gap-10 md:mt-16 md:grid-cols-12 md:items-end">
         <div className="md:col-span-7">
